@@ -10,10 +10,21 @@ module Chargify
       find(:all, { params: { subscription_id: }.merge(extra_params) })
     end
 
+    def self.find_by_customer_id(customer_id, extra_params = {})
+      find(:all, { params: { customer_ids: customer_id }.merge(extra_params) })
+    end
+
     def self.find_by_subscription_and_date_period(subscription_id, start_date, end_date, extra_params = {})
       find(
         :all,
         { params: { subscription_id:, start_date:, end_date:, date_field: 'issue_date' }.merge(extra_params) },
+      )
+    end
+
+    def self.find_by_customer_and_date_period(customer_id, start_date, end_date, extra_params = {})
+      find(
+        :all,
+        { params: { customer_ids: customer_id, start_date:, end_date:, date_field: 'issue_date' }.merge(extra_params) },
       )
     end
 
